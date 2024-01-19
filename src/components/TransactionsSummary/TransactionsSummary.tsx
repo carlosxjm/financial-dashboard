@@ -1,6 +1,7 @@
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 import { Flex, Stat, StatLabel, StatNumber, StatHelpText } from "@chakra-ui/react";
 import { parseCurrencyToShow } from "../../services/parseCurrencyToShow";
+import { ReactNode } from "react";
 
 interface TransactionsSummaryProps {
   totalRevenue: number
@@ -9,37 +10,38 @@ interface TransactionsSummaryProps {
   totalReceivable: number
 }
 
-export const TransactionsSummary = ({ totalRevenue, totalExpenses, totalPayable, totalReceivable }: TransactionsSummaryProps) =>  (
+const DefaultStat = ({ children }: { children: ReactNode }) => (
+  <Stat width={{ base: '49%', md: '32%' }} mb="4" flexBasis='auto' flexGrow='0'>{children}</Stat>
+)
+
+export const TransactionsSummary = ({ totalRevenue, totalExpenses, totalPayable, totalReceivable }: TransactionsSummaryProps) => (
   <>
-    <Flex justifyContent="space-between" marginBottom="4">
-      <Stat>
+    <Flex justifyContent={{ base: 'space-between', md: 'flex-start' }} marginBottom="4" wrap="wrap" gap="8px">
+      <DefaultStat>
         <StatLabel>Revenue</StatLabel>
         <StatNumber>{parseCurrencyToShow(totalRevenue)}</StatNumber>
         <StatHelpText><ArrowUpIcon color="green" />5% previous period</StatHelpText>
-      </Stat>
-      <Stat>
+      </DefaultStat>
+      <DefaultStat>
         <StatLabel>Expenses</StatLabel>
         <StatNumber>{parseCurrencyToShow(totalExpenses)}</StatNumber>
         <StatHelpText><ArrowDownIcon color="red" />20% previous period</StatHelpText>
-      </Stat>
-      <Stat>
+      </DefaultStat>
+      <DefaultStat>
         <StatLabel>Profit</StatLabel>
         <StatNumber>{parseCurrencyToShow(totalRevenue + totalExpenses)}</StatNumber>
         <StatHelpText><ArrowUpIcon color="green" />10% previous period</StatHelpText>
-      </Stat>
-    </Flex>
-    <Flex justifyContent="flex-start">
-      <Stat>
+      </DefaultStat>
+      <DefaultStat>
         <StatLabel>Accounts Receivable</StatLabel>
         <StatNumber>{parseCurrencyToShow(totalReceivable)}</StatNumber>
         <StatHelpText><ArrowDownIcon color="red" />50% previous period</StatHelpText>
-      </Stat>
-      <Stat>
+      </DefaultStat>
+      <DefaultStat>
         <StatLabel>Accounts Payable</StatLabel>
         <StatNumber>{parseCurrencyToShow(totalPayable)}</StatNumber>
         <StatHelpText><ArrowDownIcon color="red" />2% previous period</StatHelpText>
-      </Stat>
-      <Stat></Stat>
+      </DefaultStat>
     </Flex>
   </>
 )

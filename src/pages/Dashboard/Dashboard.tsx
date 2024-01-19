@@ -41,12 +41,12 @@ export const Dashboard = () => {
   return (
     <>
       <Heading>Overview</Heading>
-      <Flex gap="12px" mt="4">
-        <DefaultBox>
+      <Flex gap="12px" mt="4" flexDir={{ base: 'column', lg: 'row' }}>
+        <DefaultBox width={{ base: '100%', lg: '65%', xl: '50%' }}>
           <Heading size="sm" marginBottom="4">Summary</Heading>
           <TransactionsSummary {...summaryData} />
         </DefaultBox>
-        <DefaultBox>
+        <DefaultBox width={{ base: '100%', lg: '45%', xl: '50%' }}>
           <Heading size="sm" marginBottom="4">Account information</Heading>
           <TableContainer>
             <Table>
@@ -88,7 +88,7 @@ export const Dashboard = () => {
       </Flex>
       <Flex pt="3">
         <DefaultBox width="100%">
-          <TableContainer>
+          <TableContainer overflowX='auto'>
             <TransactionsTable transactions={transactions} onlyPaid={onlyPaid} />
           </TableContainer>
         </DefaultBox>

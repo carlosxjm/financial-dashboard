@@ -9,8 +9,8 @@ export const Layout = () => {
     <Flex minHeight="100vh" bg="gray.100">
       <MainAside />
 
-      <Flex direction="column" flex="1">
-        <Box flex="1" p="12">
+      <Flex direction="column" maxWidth="100%" flex="1">
+        <Box flex="1" p={{ base: '4', xl: '12' }} pt='12'>
           <Outlet />
         </Box>
       </Flex>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Flex, VStack, Button, Text } from "@chakra-ui/react";
+import { Box, Flex, VStack, Button, Text, useBreakpoint } from "@chakra-ui/react";
 import { DragHandleIcon, HamburgerIcon, SettingsIcon } from "@chakra-ui/icons";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -9,21 +9,33 @@ const ASIDE_LINKS = [
 ];
 
 export const MainAside = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const currentBreakPoint =  useBreakpoint()
+  const isExtraLargeScreen = currentBreakPoint.includes('xl')
+  const [isCollapsed, setIsCollapsed] = useState(!isExtraLargeScreen);
   const { pathname } = useLocation();
 
+
+  console.log({currentBreakPoint})
 
   const handleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
+  
+
 
   return (
     <Box
-      width={isCollapsed ? "60px" : "250px"}
+      width={{base: "250px", xl: isCollapsed ? "60px" : "250px"}}
+      position={{ base: 'absolute', xl: 'relative' }}
+      left={{base: isCollapsed ? "-250px" : "0px", xl: "0px" }}
       bg="white"
       borderRight="1px"
       borderColor="gray.200"
       transition="width 0.3s"
+      height="100vh"
+      zIndex="4"
+      transitionDuration=".3s"
+      transitionTimingFunction="ease-in-out"
     >
       <Flex
         direction="row"
@@ -40,7 +52,12 @@ export const MainAside = () => {
           onClick={handleCollapse}
           variant="ghost"
           color="gray.500"
+          position="relative"
+          left={{ base: "54px", xl: "0px" }}
+          background={{ base: 'gray.300', xl: 'transparent' }}
           _hover={{ color: 'gray.700' }}
+          borderLeftRadius="0"
+
         >
           <HamburgerIcon />
         </Button>
@@ -56,9 +73,14 @@ export const MainAside = () => {
           to={link.path}
           width="100%"
           p="2"
+          onClick={() => !isExtraLargeScreen && setIsCollapsed(true)}
         >
           {link.icon}
-          <Text marginLeft="2" display={isCollapsed ? "none" : "block"}>
+          <Text
+            marginLeft="2"
+            display={{base:'block', xl: isCollapsed ? "none" : "block"}}
+
+          >
             {link.label}
           </Text>
         </Flex>
