@@ -2,6 +2,8 @@
 
 This repository contains the implementation of a dashboard for a financial system, developed as part of a selection test. Below, you will find details about my choices of visualization, the design rationale adopted, and the challenges faced during development.
 
+![image](https://github.com/carlosxjm/financial-dashboard/assets/12661333/e2a7d171-4627-4e87-ae1a-f91017ba9800)
+
 
 ## How to Install and Run
 
